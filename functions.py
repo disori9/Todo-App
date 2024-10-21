@@ -17,6 +17,3 @@ def show_file(filename=FILEPATH):
 
     for i, data in enumerate(info):
         print(f"{i + 1}) {data.strip()}")
-
-
-print("hello from functions")
