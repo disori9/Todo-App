@@ -4,8 +4,11 @@ import PySimpleGUI as sg
 label = sg.Text("Type in a todo")
 input_box = sg.InputText(key="todo")
 add_button = sg.Button("Add")
+list_box = sg.LBox(values=functions.get_file(), key="todos")
 
-layout = [[label], [input_box, add_button]]
+layout = [[label],
+          [input_box, add_button],
+          [list_box]]
 
 window = sg.Window('My To-Do App', layout, font=('Verdana', 12))
 
