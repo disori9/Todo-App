@@ -7,10 +7,13 @@ add_button = sg.Button("Add")
 list_box = sg.Listbox(values=functions.get_file(), key="todos",
                    enable_events=True, size=(44,10))
 edit_button = sg.Button("Edit")
+show_todos_button = sg.Button("Show To Dos")
+show_complete_button = sg.Button("Show Completed To Dos")
 
 layout = [[label],
           [input_box, add_button],
-          [list_box, edit_button]]
+          [list_box, edit_button],
+          [show_todos_button, show_complete_button]]
 
 window = sg.Window('My To-Do App', layout, font=('Verdana', 12))
 
@@ -39,6 +42,13 @@ while True:
 
         case "todos":
             window['todo'].update(values['todos'][0].strip())
+
+        case "Show To Dos":
+            window['todos'].update(values=functions.get_file())
+
+        case "Show Completed To Dos":
+            window['todos'].update(values=functions.get_file('completed_todos.txt'))
+
         case sg.WINDOW_CLOSED:
             break
 window.close()
