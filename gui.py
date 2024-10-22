@@ -28,15 +28,14 @@ while True:
             new_todo = values['todo'] + '\n'
             todos.append(new_todo)
             functions.write_file(todos)
+
         case "Edit":
             todo_to_edit = values['todos'][0]
             new_todo = values['todo'] + '\n'
+
             todos = functions.get_file()
-
-            for index, todo in enumerate(todos):
-                if todo_to_edit == todo:
-                    todos[index] = new_todo
-
+            replacetodo_index = todos.index(todo_to_edit)
+            todos[replacetodo_index] = new_todo
             write_file(todos)
 
         case sg.WINDOW_CLOSED:
