@@ -1,8 +1,6 @@
 import functions
 import PySimpleGUI as sg
 
-from functions import write_file
-
 label = sg.Text("Type in a todo")
 input_box = sg.InputText(key="todo")
 add_button = sg.Button("Add")
@@ -36,8 +34,8 @@ while True:
             todos = functions.get_file()
             replacetodo_index = todos.index(todo_to_edit)
             todos[replacetodo_index] = new_todo
-            write_file(todos)
-
+            functions.write_file(todos)
+            window['todos'].update(values=todos)
         case sg.WINDOW_CLOSED:
             break
 window.close()
