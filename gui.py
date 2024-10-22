@@ -3,12 +3,12 @@ import PySimpleGUI as sg
 
 label = sg.Text("Type in a todo")
 input_box = sg.InputText(key="todo")
-add_button = sg.Button("Add")
+add_button = sg.Button("Add", font=('Verdana', 10))
 list_box = sg.Listbox(values=functions.get_file(), key="todos",
                    enable_events=True, size=(44,10))
-edit_button = sg.Button("Edit")
-show_todos_button = sg.Button("Show To Dos")
-show_complete_button = sg.Button("Show Completed To Dos")
+edit_button = sg.Button("Edit", font=('Verdana', 10))
+show_todos_button = sg.Button("Show To Dos", font=('Verdana', 10))
+show_complete_button = sg.Button("Show Completed To Dos", font=('Verdana', 10))
 
 layout = [[label],
           [input_box, add_button],
