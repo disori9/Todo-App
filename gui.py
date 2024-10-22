@@ -12,11 +12,13 @@ window = sg.Window('My To-Do App',
 
 # event returns button label (because clicking button is an event,
 # values return a dictionary type consisting of what was inputted in the input box
-event, values = window.read()
+while True:
+    event, values = window.read()
 
-todos = functions.get_file()
-todos.append(values['todo'] + '\n')
-functions.write_file(todos)
-
+    match event:
+        case "Add":
+            todos = functions.get_file()
+            todos.append(values['todo'] + '\n')
+            functions.write_file(todos)
 window.close()
 
