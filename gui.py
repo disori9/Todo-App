@@ -15,7 +15,7 @@ window = sg.Window('My To-Do App',
 event, values = window.read()
 
 todos = functions.get_file()
-todos.append(values['todo'])
+todos.append(values['todo'] + '\n')
 functions.write_file(todos)
 
 window.close()
