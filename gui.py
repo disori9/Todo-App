@@ -4,7 +4,8 @@ import PySimpleGUI as sg
 label = sg.Text("Type in a todo")
 input_box = sg.InputText(key="todo")
 add_button = sg.Button("Add")
-list_box = sg.LBox(values=functions.get_file(), key="todos")
+list_box = sg.LBox(values=functions.get_file(), key="todos",
+                   enable_events=True, size=(35,10))
 
 layout = [[label],
           [input_box, add_button],
