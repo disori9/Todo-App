@@ -18,7 +18,8 @@ while True:
     match event:
         case "Add":
             todos = functions.get_file()
-            todos.append(values['todo'] + '\n')
+            new_todo = values['todo'] + '\n'
+            todos.append(new_todo)
             functions.write_file(todos)
 window.close()
 
