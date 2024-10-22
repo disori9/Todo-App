@@ -6,3 +6,4 @@ pet the cat
 cleaning
 clean the bag
 another
+Clean the table
