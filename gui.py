@@ -6,10 +6,11 @@ input_box = sg.InputText(key="todo")
 add_button = sg.Button("Add")
 list_box = sg.LBox(values=functions.get_file(), key="todos",
                    enable_events=True, size=(35,10))
+edit_button = sg.Button("Edit")
 
 layout = [[label],
           [input_box, add_button],
-          [list_box]]
+          [list_box, edit_button]]
 
 window = sg.Window('My To-Do App', layout, font=('Verdana', 12))
 
