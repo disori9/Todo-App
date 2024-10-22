@@ -36,6 +36,9 @@ while True:
             todos[replacetodo_index] = new_todo
             functions.write_file(todos)
             window['todos'].update(values=todos)
+
+        case "todos":
+            window['todo'].update(values['todos'][0].strip())
         case sg.WINDOW_CLOSED:
             break
 window.close()
