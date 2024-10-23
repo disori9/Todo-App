@@ -1,8 +1,8 @@
-from prompt_toolkit.key_binding.bindings.named_commands import complete
-
+import time
 import functions
 import PySimpleGUI as sg
 
+clock_text = sg.Text(key='clock', font=('Verdana', 9))
 label = sg.Text("Type in a todo")
 input_box = sg.InputText(key="todo")
 add_button = sg.Button("Add", font=('Verdana', 10))
@@ -14,7 +14,8 @@ exit_button = sg.Button("Exit", font=('Verdana', 10))
 show_todos_button = sg.Button("Show To Dos", font=('Verdana', 10))
 show_complete_button = sg.Button("Show Completed To Dos", font=('Verdana', 10))
 
-layout = [[label],
+layout = [[clock_text],
+          [label],
           [input_box, ],
           [list_box, [add_button, edit_button, complete_button, exit_button]],
           [show_todos_button, show_complete_button]]
@@ -24,9 +25,9 @@ window = sg.Window('My To-Do App', layout, font=('Verdana', 12))
 # event returns button label (because clicking button is an event,
 # values return a dictionary type consisting of what was inputted in the input box
 while True:
-    event, values = window.read()
-    print(event)
-    print(values)
+    event, values = window.read(timeout=200)
+    window['clock'].update(value=time.strftime('%B %d, %Y | It is %A | %I:%M %p'))
+
     match event:
         case "Add":
             todos = functions.get_file()
