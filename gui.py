@@ -4,17 +4,19 @@ import functions
 import PySimpleGUI as sg
 
 label = sg.Text("Type in a todo")
+completed_message = sg.Text(key='todo completed', font=('Verdana', 8))
 input_box = sg.InputText(key="todo")
 add_button = sg.Button("Add", font=('Verdana', 10))
 list_box = sg.Listbox(values=functions.get_file(), key="todos",
                    enable_events=True, size=(44,10))
 edit_button = sg.Button("Edit", font=('Verdana', 10))
 complete_button = sg.Button("Complete", font=('Verdana', 10))
-exit_button = sg.Button("Exit", font=('Verdana', 6))
+exit_button = sg.Button("Exit", font=('Verdana', 10))
 show_todos_button = sg.Button("Show To Dos", font=('Verdana', 10))
 show_complete_button = sg.Button("Show Completed To Dos", font=('Verdana', 10))
 
-layout = [[label],
+layout = [[completed_message],
+          [label],
           [input_box, ],
           [list_box, [add_button, edit_button, complete_button, exit_button]],
           [show_todos_button, show_complete_button]]
@@ -54,6 +56,9 @@ while True:
             functions.write_file(todos)
             functions.write_file(completed_todos, 'completed_todos.txt')
             window['todos'].update(values=functions.get_file())
+            window['todo completed'].update(value=f'You have successfully completed {todo_to_complete.strip()}!')
+        case "Exit":
+            break
 
         case "todos":
             window['todo'].update(values['todos'][0].strip())
