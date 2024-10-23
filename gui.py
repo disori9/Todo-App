@@ -4,7 +4,6 @@ import functions
 import PySimpleGUI as sg
 
 label = sg.Text("Type in a todo")
-completed_message = sg.Text(key='todo completed', font=('Verdana', 8))
 input_box = sg.InputText(key="todo")
 add_button = sg.Button("Add", font=('Verdana', 10))
 list_box = sg.Listbox(values=functions.get_file(), key="todos",
@@ -15,8 +14,7 @@ exit_button = sg.Button("Exit", font=('Verdana', 10))
 show_todos_button = sg.Button("Show To Dos", font=('Verdana', 10))
 show_complete_button = sg.Button("Show Completed To Dos", font=('Verdana', 10))
 
-layout = [[completed_message],
-          [label],
+layout = [[label],
           [input_box, ],
           [list_box, [add_button, edit_button, complete_button, exit_button]],
           [show_todos_button, show_complete_button]]
@@ -38,26 +36,34 @@ while True:
             window['todos'].update(values=todos)
 
         case "Edit":
-            todo_to_edit = values['todos'][0]
-            new_todo = values['todo'] + '\n'
+            try:
+                todo_to_edit = values['todos'][0]
+                new_todo = values['todo'] + '\n'
 
-            todos = functions.get_file()
-            replacetodo_index = todos.index(todo_to_edit)
-            todos[replacetodo_index] = new_todo
-            functions.write_file(todos)
-            window['todos'].update(values=todos)
+                todos = functions.get_file()
+                replacetodo_index = todos.index(todo_to_edit)
+                todos[replacetodo_index] = new_todo
+                functions.write_file(todos)
+                window['todos'].update(values=todos)
+            except IndexError:
+                sg.popup('Please select a todo to edit!', button_justification='center', font=('Verdana', 11))
+                continue
 
         case "Complete":
-            todo_to_complete = values['todos'][0]
-            todos = functions.get_file()
-            completed_todo = todos.pop(todos.index(todo_to_complete))
-            completed_todos = functions.get_file('completed_todos.txt')
-            completed_todos.append(completed_todo)
-            functions.write_file(todos)
-            functions.write_file(completed_todos, 'completed_todos.txt')
-            window['todos'].update(values=functions.get_file())
-            window['todo'].update(value="")
-            window['todo completed'].update(value=f'You have successfully completed {todo_to_complete.strip()}!')
+            try:
+                todo_to_complete = values['todos'][0]
+                todos = functions.get_file()
+                completed_todo = todos.pop(todos.index(todo_to_complete))
+                completed_todos = functions.get_file('completed_todos.txt')
+                completed_todos.append(completed_todo)
+                functions.write_file(todos)
+                functions.write_file(completed_todos, 'completed_todos.txt')
+                window['todos'].update(values=functions.get_file())
+                window['todo'].update(value="")
+                sg.popup(f'You have successfully completed {todo_to_complete.strip()}!', button_justification='center', font=('Verdana', 11))
+            except IndexError:
+                sg.popup('Please select a todo to complete!', button_justification='center', font=('Verdana', 11))
+                continue
 
         case "Exit":
             break
