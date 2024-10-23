@@ -1,3 +1,5 @@
+from prompt_toolkit.key_binding.bindings.named_commands import complete
+
 import functions
 import PySimpleGUI as sg
 
@@ -7,12 +9,14 @@ add_button = sg.Button("Add", font=('Verdana', 10))
 list_box = sg.Listbox(values=functions.get_file(), key="todos",
                    enable_events=True, size=(44,10))
 edit_button = sg.Button("Edit", font=('Verdana', 10))
+complete_button = sg.Button("Complete", font=('Verdana', 10))
+exit_button = sg.Button("Exit", font=('Verdana', 6))
 show_todos_button = sg.Button("Show To Dos", font=('Verdana', 10))
 show_complete_button = sg.Button("Show Completed To Dos", font=('Verdana', 10))
 
 layout = [[label],
-          [input_box, add_button],
-          [list_box, edit_button],
+          [input_box, ],
+          [list_box, [add_button, edit_button, complete_button, exit_button]],
           [show_todos_button, show_complete_button]]
 
 window = sg.Window('My To-Do App', layout, font=('Verdana', 12))
@@ -40,6 +44,16 @@ while True:
             todos[replacetodo_index] = new_todo
             functions.write_file(todos)
             window['todos'].update(values=todos)
+
+        case "Complete":
+            todo_to_complete = values['todos'][0]
+            todos = functions.get_file()
+            completed_todo = todos.pop(todos.index(todo_to_complete))
+            completed_todos = functions.get_file('completed_todos.txt')
+            completed_todos.append(completed_todo)
+            functions.write_file(todos)
+            functions.write_file(completed_todos, 'completed_todos.txt')
+            window['todos'].update(values=functions.get_file())
 
         case "todos":
             window['todo'].update(values['todos'][0].strip())
