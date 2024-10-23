@@ -57,6 +57,7 @@ while True:
             functions.write_file(completed_todos, 'completed_todos.txt')
             window['todos'].update(values=functions.get_file())
             window['todo completed'].update(value=f'You have successfully completed {todo_to_complete.strip()}!')
+
         case "Exit":
             break
 
