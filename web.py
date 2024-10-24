@@ -21,7 +21,7 @@ for index, todo in enumerate(todos):
           # and then we rewrite todos existing file
           del st.session_state[todo]
           # we need to delete the unique session_state of the removed todo so we can clean the dictionary
-          st.experimental_rerun()
+          st.rerun()
           # seems like this is needed for checkboxes.
 
 # on_change basically says na if something is entered in the text_input
