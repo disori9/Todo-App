@@ -1,6 +1,14 @@
 import time
 import functions
 import PySimpleGUI as sg
+import os
+
+if not os.path.exists('todos.txt'):
+    with open('todos.txt', 'w') as file:
+        pass
+if not os.path.exists('completed_todos.txt'):
+    with open('completed_todos.txt', 'w'):
+        pass
 
 sg.theme('DarkPurple1')
 clock_text = sg.Text(key='clock', font=('Verdana', 9))
@@ -31,6 +39,8 @@ while True:
 
     match event:
         case "Add":
+            if values['todo'] == '':
+                continue
             todos = functions.get_file()
             new_todo = values['todo'] + '\n'
             todos.append(new_todo)
